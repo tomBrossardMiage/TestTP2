@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.EmptyStackException;
+
 public interface Stack {
     /**
      * Tests if this stack is empty
