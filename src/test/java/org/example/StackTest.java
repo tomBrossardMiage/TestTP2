@@ -1,83 +1,88 @@
 package org.example;
 
+import org.example.impl.Calculatrice;
 import org.example.impl.Pile;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.EmptyStackException;
+import org.example.exception.EmptyStackException;
 
 import static org.junit.Assert.*;
 
 public class StackTest {
+    Pile pile;
 
+    @Before
+    public void setUp(){
+        pile = new Pile();
+    }
     @Test
-    public void isEmpty() {
-        Pile pilvevide = new Pile();
-        assertTrue("La pile doit être vide après sa création", pilvevide.isEmpty());
+    public void isEmpty() throws EmptyStackException {
+        assertTrue("La pile doit être vide après sa création", pile.isEmpty());
 
-        pilvevide.push(10.0);
-        assertFalse("La pile ne doit pas être vide après avoir ajouté un élément", pilvevide.isEmpty());
+        pile.push(10.0);
+        assertFalse("La pile ne doit pas être vide après avoir ajouté un élément", pile.isEmpty());
 
-        pilvevide.pop();
-        assertTrue("La pile doit être vide après avoir retiré tous les éléments", pilvevide.isEmpty());
+        pile.pop();
+        assertTrue("La pile doit être vide après avoir retiré tous les éléments", pile.isEmpty());
     }
 
     @Test
-    public void getSize() {
-        Pile pileTaille = new Pile();
-        assertEquals("La taille de la pile doit être 0 après sa création",0, pileTaille.getSize());
+    public void getSize() throws EmptyStackException {
+        assertEquals("La taille de la pile doit être 0 après sa création",0, pile.getSize());
 
-        pileTaille.push(10);
-        pileTaille.push(20);
-        assertEquals(2, pileTaille.getSize());
+        pile.push(10);
+        pile.push(20);
+        assertEquals(2, pile.getSize());
 
-        pileTaille.pop();
-        assertEquals("La taille de la pile doit être 1 après un pop", 1, pileTaille.getSize());
+        pile.pop();
+        assertEquals("La taille de la pile doit être 1 après un pop", 1, pile.getSize());
 
-        pileTaille.pop();
-        assertEquals("La taille de la pile doit être 0 après avoir retiré tous les éléments",0, pileTaille.getSize());
+        pile.pop();
+        assertEquals("La taille de la pile doit être 0 après avoir retiré tous les éléments",0, pile.getSize());
 
     }
 
     @Test
     public void push() {
-        Pile pilePush = new Pile();
-        pilePush.push(10);
-        assertEquals( "La taille de la pile doit être 1 après un push",1, pilePush.getSize());
+        pile.push(10);
+        assertEquals( "La taille de la pile doit être 1 après un push",1, pile.getSize());
 
-        pilePush.push(20);
-        assertEquals("La taille de la pile doit être 2 après deux push",2, pilePush.getSize());
-
-    }
-
-    @Test
-    public void peek() {
-        Pile pilePeek = new Pile();
-
-        pilePeek.push(10);
-        pilePeek.push(20);
-
-        assertEquals("Peek doit retourner le dernier élément empilé",20, pilePeek.peek());
-        assertEquals("La taille de la pile ne doit pas changer après un peek",2, pilePeek.getSize());
-
-        pilePeek.pop();
-        pilePeek.pop();
-        assertThrows("Peek sur une pile vide doit lever EmptyStackException",EmptyStackException.class, pilePeek::peek);
+        pile.push(20);
+        assertEquals("La taille de la pile doit être 2 après deux push",2, pile.getSize());
 
     }
 
     @Test
-    public void pop() {
-        Pile pilePop = new Pile();
-        pilePop.push(10);
-        pilePop.push(20);
+    public void peek() throws EmptyStackException {
+        pile.push(10);
+        pile.push(20);
 
-        assertEquals( "Pop doit retourner l'élément suivant", 20, pilePop.pop());
-        assertEquals("La taille de la pile doit être 1 après deux pops",1, pilePop.getSize());
+        assertEquals("Peek doit retourner le dernier élément empilé",20, pile.peek());
+        assertEquals("La taille de la pile ne doit pas changer après un peek",2, pile.getSize());
 
-        assertEquals("Pop doit retourner le dernier élément",10, pilePop.pop());
-        assertEquals("La taille de la pile doit être 0 après avoir retiré tous les éléments", 0, pilePop.getSize());
+        pile.pop();
+        pile.pop();
+        assertThrows("Peek sur une pile vide doit lever EmptyStackException",EmptyStackException.class, ()->{
+            pile.peek();
+        });
 
-        assertThrows("Pop sur une pile vide doit lever EmptyStackException",EmptyStackException.class, pilePop::pop);
+    }
+
+    @Test
+    public void pop() throws EmptyStackException {
+        pile.push(10);
+        pile.push(20);
+
+        assertEquals( "Pop doit retourner l'élément suivant", 20, pile.pop());
+        assertEquals("La taille de la pile doit être 1 après deux pops",1, pile.getSize());
+
+        assertEquals("Pop doit retourner le dernier élément",10, pile.pop());
+        assertEquals("La taille de la pile doit être 0 après avoir retiré tous les éléments", 0, pile.getSize());
+
+        assertThrows("Pop sur une pile vide doit lever EmptyStackException",EmptyStackException.class, ()->{
+            pile.pop();
+        });
 
     }
 }
