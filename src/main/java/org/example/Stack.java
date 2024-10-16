@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.EmptyStackException;
+import org.example.exception.EmptyStackException;
 
 public interface Stack {
     /**
