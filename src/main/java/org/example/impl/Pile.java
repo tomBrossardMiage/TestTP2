@@ -7,7 +7,11 @@ import org.example.exception.EmptyStackException;
 
 public class Pile implements Stack {
 
-    private ArrayList<Double> pile = new ArrayList<>();
+    private ArrayList<Double> pile;
+
+    public Pile(){
+        pile = new ArrayList<>();
+    }
     @Override
     public boolean isEmpty() {
         return pile.isEmpty();

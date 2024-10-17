@@ -8,4 +8,3 @@ TP2 notée de UE Ingénierie logiciel
 - Pour changer de branche **git checkout <NOM_BRANCHE>**
 - Faire modif sur ta branche de dev et pousser sur dev pour valider
 - pour ce faire : se déplacer sur la branche cible puis **git merge NomBrancheCible** ou les modifications ont étaient réalisé
-
