@@ -53,11 +53,11 @@ public class StackTest {
     public void peek() throws EmptyStackException {
         Pile pilePeek = new Pile();
 
-        pilePeek.push(10);
-        pilePeek.push(20);
+        pilePeek.push(10.0);
+        pilePeek.push(20.0);
 
-        assertEquals("Peek doit retourner le dernier élément empilé",20, pilePeek.peek());
-        assertEquals("La taille de la pile ne doit pas changer après un peek",2, pilePeek.getSize());
+        assertEquals("Peek doit retourner le dernier élément empilé",20, pilePeek.peek(),0.1);
+        assertEquals("La taille de la pile ne doit pas changer après un peek",2, pilePeek.getSize(), 0.1);
 
         pilePeek.pop();
         pilePeek.pop();
@@ -71,10 +71,10 @@ public class StackTest {
         pilePop.push(10);
         pilePop.push(20);
 
-        assertEquals( "Pop doit retourner l'élément suivant", 20, pilePop.pop());
+        assertEquals( "Pop doit retourner l'élément suivant", 20, pilePop.pop(), 0.1);
         assertEquals("La taille de la pile doit être 1 après deux pops",1, pilePop.getSize());
 
-        assertEquals("Pop doit retourner le dernier élément",10, pilePop.pop());
+        assertEquals("Pop doit retourner le dernier élément",10, pilePop.pop(), 0.1);
         assertEquals("La taille de la pile doit être 0 après avoir retiré tous les éléments", 0, pilePop.getSize());
 
         assertThrows("Pop sur une pile vide doit lever EmptyStackException",EmptyStackException.class, pilePop::pop);
