@@ -12,6 +12,11 @@ public class Calculatrice implements Calc {
     public Calculatrice(){
         pile = new Pile();
     }
+
+    public Stack getPile() {
+        return pile;
+    }
+
     @Override
     public void enterValue(double value) {
         pile.push(value);
