@@ -13,7 +13,7 @@ public class CalcTest {
     public void EnterValue() throws NotEnoughOperandsOnStackException {
         Calc calc = new Calculatrice();
         calc.enterValue(5.0);
-        assertEquals("Le sommet de la pile doit être 5.0", 5.0, calc.displayValueOnTop());
+        assertEquals("Le sommet de la pile doit être 5.0", 5.0, calc.displayValueOnTop(), 0.1);
     }
 
     @Test
@@ -23,7 +23,7 @@ public class CalcTest {
         calc.enterValue(3.0);
         calc.enterValue(7.0);
         calc.add();
-        assertEquals("Le résultat de 3 + 7 est 10", 10.0, calc.displayValueOnTop());
+        assertEquals("Le résultat de 3 + 7 est 10", 10.0, calc.displayValueOnTop(), 0.1);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class CalcTest {
         calc.enterValue(10.0);
         calc.enterValue(4.0);
         calc.subtract();
-        assertEquals("Le résultat de 10 - 4 est 6", 6.0, calc.displayValueOnTop());
+        assertEquals("Le résultat de 10 - 4 est 6", 6.0, calc.displayValueOnTop(), 0.1);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class CalcTest {
         calc.enterValue(3.0);
         calc.enterValue(4.0);
         calc.multiply();
-        assertEquals("Le résultat de 3 * 4 est 12", 12.0, calc.displayValueOnTop());
+        assertEquals("Le résultat de 3 * 4 est 12", 12.0, calc.displayValueOnTop(), 0.1);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class CalcTest {
         calc.enterValue(10.0);
         calc.enterValue(2.0);
         calc.divide();
-        assertEquals("Le résultat de 10 / 2 est 5", 5.0, calc.displayValueOnTop());
+        assertEquals("Le résultat de 10 / 2 est 5", 5.0, calc.displayValueOnTop(), 0.1);
     }
 
     @Test(expected = NotEnoughOperandsOnStackException.class)

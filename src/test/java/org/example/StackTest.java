@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class StackTest {
 
     @Test
-    public void isEmpty() {
+    public void isEmpty() throws EmptyStackException {
         Pile pilvevide = new Pile();
         assertTrue("La pile doit être vide après sa création", pilvevide.isEmpty());
 
@@ -22,7 +22,7 @@ public class StackTest {
     }
 
     @Test
-    public void getSize() {
+    public void getSize() throws EmptyStackException {
         Pile pileTaille = new Pile();
         assertEquals("La taille de la pile doit être 0 après sa création",0, pileTaille.getSize());
 
@@ -50,7 +50,7 @@ public class StackTest {
     }
 
     @Test
-    public void peek() {
+    public void peek() throws EmptyStackException {
         Pile pilePeek = new Pile();
 
         pilePeek.push(10);
