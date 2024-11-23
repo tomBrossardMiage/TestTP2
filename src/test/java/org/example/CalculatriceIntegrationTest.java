@@ -3,22 +3,30 @@ package org.example;
 import org.example.exception.DivideByZeroException;
 import org.example.exception.NotEnoughOperandsOnStackException;
 import org.example.impl.Calculatrice;
+import org.example.impl.Pile;
+import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+public class CalculatriceIntegrationTest {
 
-public class CalcTest {
+    private Calc calc;
+
+    @Before
+    public void setUp() {
+        Pile pile = new Pile();
+        calc = new Calculatrice(pile);
+    }
 
     @Test
-    public void EnterValue() throws NotEnoughOperandsOnStackException {
-        Calc calc = new Calculatrice();
+    public void enterValueTestIntegration() throws NotEnoughOperandsOnStackException {
         calc.enterValue(5.0);
         assertEquals("Le sommet de la pile doit être 5.0", 5.0, calc.displayValueOnTop(), 0.1);
     }
 
+
     @Test
-    public void Add() throws NotEnoughOperandsOnStackException {
-        Calc calc = new Calculatrice();
+    public void addTest() throws NotEnoughOperandsOnStackException {
         calc.enterValue(1.0);
         calc.enterValue(3.0);
         calc.enterValue(7.0);
@@ -27,8 +35,7 @@ public class CalcTest {
     }
 
     @Test
-    public void Subtract() throws NotEnoughOperandsOnStackException {
-        Calc calc = new Calculatrice();
+    public void subtractTest() throws NotEnoughOperandsOnStackException {
         calc.enterValue(120.0);
         calc.enterValue(10.0);
         calc.enterValue(4.0);
@@ -37,8 +44,7 @@ public class CalcTest {
     }
 
     @Test
-    public void Multiply() throws NotEnoughOperandsOnStackException {
-        Calc calc = new Calculatrice();
+    public void multiplyTest() throws NotEnoughOperandsOnStackException {
         calc.enterValue(10.0);
         calc.enterValue(3.0);
         calc.enterValue(4.0);
@@ -47,8 +53,7 @@ public class CalcTest {
     }
 
     @Test
-    public void Divide() throws NotEnoughOperandsOnStackException, DivideByZeroException {
-        Calc calc = new Calculatrice();
+    public void divideTest() throws NotEnoughOperandsOnStackException, DivideByZeroException {
         calc.enterValue(5.0);
         calc.enterValue(10.0);
         calc.enterValue(2.0);
@@ -57,23 +62,21 @@ public class CalcTest {
     }
 
     @Test(expected = NotEnoughOperandsOnStackException.class)
-    public void testAddWithInsufficientOperands() throws NotEnoughOperandsOnStackException {
-        Calc calc = new Calculatrice();
+    public void addAvecUnSeulNombre() throws NotEnoughOperandsOnStackException {
         calc.enterValue(3.0);
         calc.add();
     }
 
     @Test(expected = NotEnoughOperandsOnStackException.class)
-    public void testDisplayValueOnTopWhenEmpty() throws NotEnoughOperandsOnStackException {
-        Calc calc = new Calculatrice();
+    public void displayValueOnTopPileVide() throws NotEnoughOperandsOnStackException {
         calc.displayValueOnTop();
     }
 
     @Test(expected = DivideByZeroException.class)
-    public void testDivideByZero() throws NotEnoughOperandsOnStackException, DivideByZeroException {
-        Calc calc = new Calculatrice();
+    public void divideByZero() throws NotEnoughOperandsOnStackException, DivideByZeroException {
         calc.enterValue(3.0);
         calc.enterValue(0.0);
         calc.divide();
     }
 }
+

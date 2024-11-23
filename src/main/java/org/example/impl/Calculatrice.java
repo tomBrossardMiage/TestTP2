@@ -10,13 +10,9 @@ import java.util.EmptyStackException;
 public class Calculatrice implements Calc {
     Stack pile;
 
-    public Calculatrice(){
-        pile = new Pile();
-    }
-
-    public Stack getPile() {
-        return pile;
-    }
+    public Calculatrice(Pile pile){
+        this.pile = pile;
+    };
 
     @Override
     public void enterValue(double value) {

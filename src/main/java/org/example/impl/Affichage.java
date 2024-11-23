@@ -9,48 +9,55 @@ import java.util.EmptyStackException;
 public class Affichage implements RPNParser {
     private Calculatrice calculette;
     private double result;
-    public Affichage (){
-        this.calculette = new Calculatrice();
+
+    public Affichage (Calculatrice calculatrice){
+        this.calculette = calculatrice;
     }
     @Override
     public double parseAndDisplayResult(String toParse) throws NotEnoughOperandsOnStackException, DivideByZeroException, ParseException, EmptyStackException {
         StringBuilder valTemp = new StringBuilder();
-        for (int i = 0; i < toParse.length(); i++) {
+        int i = 0;
+        while (i < toParse.length()) {
             char c = toParse.charAt(i);
-            switch (c) {
-                case '+':
-                    this.calculette.add();
-                    result = calculette.displayValueOnTop();
-                    break;
-                case '-':
-                    calculette.subtract();
-                    result = calculette.displayValueOnTop();
-                    break;
-                case '*':
-                    this.calculette.multiply();
-                    result = calculette.displayValueOnTop();
-                    break;
-                case '/':
-                    this.calculette.divide();
-                    result = calculette.displayValueOnTop();
-                    break;
-                default:
-                    if (c != ' ') {  // Si le caractère n'est pas un espace
-                        valTemp.append(c);  // Ajouter le caractère à la sous-chaîne temporaire
-                        if (estUnNombre(valTemp)) {
-                            double valeur = Double.parseDouble(String.valueOf(c));
-                            this.calculette.enterValue(valeur);
-                            valTemp.setLength(0);  // Réinitialiser motTemp pour le prochain mot
-                        } else {
-                            System.out.println("la valeur n'est ni un chiffre ni une opérande, entrée non valide");
-                        }
+            if (Character.isWhitespace(c)) {
+                i++;
+            } else if (c == '+' || c == '-' || c == '*' || c == '/') {
+                switch (c) {
+                    case '+':
+                        calculette.add();
                         break;
-                    }
+                    case '-':
+                        calculette.subtract();
+                        break;
+                    case '*':
+                        calculette.multiply();
+                        break;
+                    case '/':
+                        calculette.divide();
+                        break;
+                }
+                result = calculette.displayValueOnTop();
+                i++;
+            } else {
+                // Gestion des nombres : accumulation des chiffres jusqu'à l'espace ou fin de chaîne
+                valTemp.setLength(0); // Réinitialiser valTemp pour chaque nombre
+                while (i < toParse.length() && !Character.isWhitespace(toParse.charAt(i)) && "+-*/".indexOf(toParse.charAt(i)) == -1) {
+                    valTemp.append(toParse.charAt(i));
+                    i++;
+                }
+
+                // Convertir le contenu de valTemp en nombre et le pousser dans la calculatrice
+                if (estUnNombre(valTemp)) {
+                    double valeur = Double.parseDouble(valTemp.toString());
+                    calculette.enterValue(valeur);
+                } else {
+                    throw new ParseException("La valeur '" + valTemp + "' n'est ni un nombre ni une opérande valide.");
+                }
             }
         }
-        System.out.println("Résultat : " + result);
-        return result;
 
+        System.out.println(result);
+        return result;
     }
 
     public static boolean estUnNombre(StringBuilder texte) {
